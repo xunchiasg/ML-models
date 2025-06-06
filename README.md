@@ -48,11 +48,15 @@ Data exploration and associated steps towards final model evaluation and selecti
 
 A degree of emphasis was placed on the numerical features owing to their influence on ML model training, which required feature scaling and outlier treament. 
 
-- Image one 
+*Numerical Features with outliers*
+![numerical_features_outliers](https://github.com/user-attachments/assets/9e13d61b-a76a-49ce-b31d-58f6ccc8bbc3)
 
-- Image 2 
+*Features without outliers*
+![numerical_features](https://github.com/user-attachments/assets/99250685-5b57-4238-b114-bc7328cef31e)
 
-- Heatmap 
+*Correlation Heatmap*
+![corr_heatmap](https://github.com/user-attachments/assets/e55bf975-09c9-4660-b6f3-e90e000f25ec)
+
 
 ### Initial Model Training 
 
