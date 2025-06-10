@@ -113,11 +113,25 @@ Final model selection based on the problem statement was that of the **Initial R
   - Best Class 1 F1-score (0.62) showing balanced precision-recall
   - Decent Class 1 performance without overfitting issues observed in tuned models
 
-## Model Deployment Preparation
-- **Next Step**: The final Random Forest model will be pickled using Python's `pickle` or library
-- **Purpose**: To enable model deployment in production Python scripts
-- **Usage**: The pickled model can be loaded and used for real-time song popularity predictions as-is
-- Creation of ML pipeline for Random Forest model 
+## ML Pipeline 
+A pipeline to train the Random Forest model was created via `precprocess.py` and `train_rf.py` executed in the main python script. Execution of the script will also create a pickled model under a newly created `model` folder. 
+
+**Model Classification Report**
+
+```
+Training Accuracy: 0.99
+Testing Accuracy: 0.85
+F1 Score: 0.83
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.85      0.98      0.91     17005
+           1       0.89      0.48      0.62      5795
+
+    accuracy                           0.85     22800
+   macro avg       0.87      0.73      0.76     22800
+weighted avg       0.86      0.85      0.83     22800
+```
 
 ---
 *(Updated June 11, 2025)*
