@@ -46,17 +46,16 @@ Data exploration and associated steps towards final model evaluation and selecti
 | 0–49                   | 0             | Unpopular |
 | 50–100                 | 1             | Popular   |
 
-A degree of emphasis was placed on the numerical features owing to their influence on ML model training, which required feature scaling and outlier treament. 
+A degree of emphasis was placed on the numerical features owing to their influence on ML model training, which required feature scaling and outlier treatment. 
 
-*Numerical Features with outliers*
-![numerical_features_outliers](https://github.com/user-attachments/assets/9e13d61b-a76a-49ce-b31d-58f6ccc8bbc3)
+*Nmerical features (outliers)*
+![num_features_outliers](https://github.com/user-attachments/assets/c199ba92-8ac6-4770-8777-a9e6bc9e88f3)
 
-*Features without outliers*
-![numerical_features](https://github.com/user-attachments/assets/99250685-5b57-4238-b114-bc7328cef31e)
+- Image one 
 
-*Correlation Heatmap*
-![corr_heatmap](https://github.com/user-attachments/assets/e55bf975-09c9-4660-b6f3-e90e000f25ec)
+- Image 2 
 
+- Heatmap 
 
 ### Initial Model Training 
 
@@ -64,14 +63,20 @@ A total of 6 classification models were trained and baseline performance assesse
 
 | Rank | Model                | Score              |
 |------|----------------------|--------------------|
-| 1    | **Random Forest**        | **0.8243950087375912** |
-| 2    | **XGBoost**              | **0.7603920968804951** |
-| 3    | **Decision Tree**        | **0.7493722182833807** |
-| 4    | Gradient Boosting    | 0.7429138499621698 |
-| 5    | Logistic Regression  | 0.7415541853292726 |
-| 6    | K-Nearest Neighbors  | 0.730885222520016  |
+| 1    | **Random Forest**        | **0.8493** |
+| 2    | **XGBoost**              | **0.7779** |
+| 3    | **Decision Tree**        | **0.7590** |
+| 4    | Gradient Boosting        | 0.760      |
+| 5    | Logistic Regression      | 0.7451     |
+| 6    | K-Nearest Neighbors      | 0.7425     |
 
 Further 5-fold cross validation on the shortlisted top 3 models were conducted, with no significant accuracy drop confirming general model stability. 
+
+| Model                | Accuracy Score (Mean over 3 Folds) |
+|----------------------|------------------------------------|
+| Random Forest        | 0.8219                             |
+| XGBoost              | 0.7548                             |
+| Decision Tree        | 0.7456                             |
 
 ### Hyperparamter Tuning
 
@@ -86,32 +91,34 @@ The top 2 models were subjected to hyperparamter tuning through GridsearchCV wit
   - `min_samples_leaf`: [1, 2]
   - `max_features`: ['sqrt', 'log2']
   - `criterion`: ['gini', 'entropy']
-- **Best Parameters Found**: 
+
+- **Best Parameters Proposed**: 
   - `criterion`: 'gini', `max_depth`: 7, `max_features`: 'sqrt'
-  - `min_samples_leaf`: 2, `min_samples_split`: 5, `n_estimators`: 200
+  - `min_samples_leaf`: 2, `min_samples_split`: 2, `n_estimators`: 100
 
 However, the above proposed parameters ultimately led to generally degraded performance with a significant tendency towards Class 0 recall, indicating model overfitting towards the majority class.
 
 | Model                        | Test Accuracy | Class 1 Recall | Class 1 F1 | Notes                              |
 | ---------------------------- | ------------- | -------------- | ---------- | ---------------------------------- |
-| **Random Forest (initial)**  | **0.8534**    | **0.49**       | **0.63**   | **Selected as Final Model**        |
-| Random Forest (tuned)        | 0.7456        | 0.00           | 0.01       | Overfitting toward Class 0         |
-| XGBoost (initial)            | 0.7807        | 0.26           | 0.37       | Lower recall than Random Forest    |
-| XGBoost (tuned)              | 0.7678        | 0.16           | 0.26       | Performance degraded after tuning  |
+| **Random Forest (initial)**  | **0.8509**    | **0.48**       | **0.62**   | **Selected as Final Model**        |
+| Random Forest (tuned)        | 0.7458        | 0.01           | 0.01       | Severly degraded recall after tuning|
+| XGBoost (initial)            | 0.7715        | 0.21           | 0.32       | Lower recall than Random Forest    |
+| XGBoost (tuned)              | 0.7644        | 0.13           | 0.21       | Performance degraded after tuning  |
 
 Final model selection based on the problem statement was that of the **Initial Random Forest Model** for prediction of popularity class.
 
 - **Key Rationale**:
-  - Highest test accuracy (85.34%)
-  - Best Class 1 recall (0.49) for identifying popular songs
-  - Best Class 1 F1-score (0.63) showing balanced precision-recall
-  - Stable performance without overfitting issues observed in tuned models
+  - Highest test accuracy (85.09%)
+  - Best Class 1 recall (0.48) for identifying popular songs
+  - Best Class 1 F1-score (0.62) showing balanced precision-recall
+  - Decent Class 1 performance without overfitting issues observed in tuned models
 
 ## Model Deployment Preparation
 - **Next Step**: The final Random Forest model will be pickled using Python's `pickle` or library
 - **Purpose**: To enable model deployment in production Python scripts
 - **Usage**: The pickled model can be loaded and used for real-time song popularity predictions as-is
+- Creation of ML pipeline for Random Forest model 
 
 ---
-*(Updated June 6, 2025)*
+*(Updated June 10, 2025)*
 
