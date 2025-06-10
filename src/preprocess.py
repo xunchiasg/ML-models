@@ -25,7 +25,7 @@ if __name__ == "__main__":
         
         df_clean.dropna()
         
-        cols_to_drop = ['Unnamed: 0', 'artists' 'track_id', 'explicit', 'time_signature']
+        cols_to_drop = ['Unnamed: 0', 'artists', 'track_id', 'explicit', 'time_signature']
         
         df_clean.drop(columns=cols_to_drop, inplace=True)
         
