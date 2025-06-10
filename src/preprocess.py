@@ -25,7 +25,7 @@ if __name__ == "__main__":
         
         df_clean.dropna()
         
-        cols_to_drop = ['Unnamed: 0', 'track_id', 'explicit', 'time_signature']
+        cols_to_drop = ['Unnamed: 0', 'artists' 'track_id', 'explicit', 'time_signature']
         
         df_clean.drop(columns=cols_to_drop, inplace=True)
         
@@ -37,5 +37,28 @@ if __name__ == "__main__":
     df_clean = cleaning(df)
     
     #######################
-    # Cleaning 
+    # Target Feature Treatment 
     #######################
+    
+    print(f"Target feature treatment...")
+    
+    def target_treatment(df):
+        
+        df_target = df.copy()
+        
+        # Convert target feature to binary
+        df_target['popularity'] = np.where(df_target['popularity'] >= 50, 1, 0)
+        
+        # Rename target feature
+        df_target.rename(columns={'popularity': 'popularity_class'}, inplace=True)
+        
+        print(f"Target feature 'popularity' converted to binary and renamed to 'popularity_class")
+        
+        return df_target
+    
+    df_target = target_treatment(df_clean)
+    
+    
+    #######################
+    # Numeric Feature Treatment 
+    #######################    
